@@ -4,7 +4,8 @@ class Lightning {
     constructor() {
 
     }
-    install() {
+    install(vm) {
+        console.log(vm)
         // events to $on(_events)
         Vue.mixin({
             beforeCreate() {

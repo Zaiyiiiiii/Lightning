@@ -14,9 +14,8 @@
 
     export default {
         name: 'home',
-        mounted() {
-            this.$whisper("submit")
-            console.log(this)
+        async mounted() {
+            this.$emit("submit")
         },
         events: {
             submit: () => {

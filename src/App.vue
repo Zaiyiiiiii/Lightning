@@ -15,7 +15,10 @@
             submit() {
                 console.log("app-sumbit")
             }
-        }
+        },
+        mounted() {
+            console.log(this)
+        },
     }
 </script>
 <style>
