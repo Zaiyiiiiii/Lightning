@@ -20,7 +20,6 @@ class Lightning {
                 if (extendOptions.eventFlows) {
                     Object.keys(extendOptions.events).map(
                         key => {
-                            console.log(this)
                             let flow = new Subject()
                             extendOptions.eventFlows[key].call(this, flow)
                             this.$on(key, event => {
