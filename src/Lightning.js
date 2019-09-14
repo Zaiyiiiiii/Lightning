@@ -5,7 +5,6 @@ class Lightning {
 
     }
     install(vm) {
-        console.log(vm)
         // events to $on(_events)
         Vue.mixin({
             beforeCreate() {
@@ -21,8 +20,9 @@ class Lightning {
                 if (extendOptions.eventFlows) {
                     Object.keys(extendOptions.events).map(
                         key => {
+                            console.log(this)
                             let flow = new Subject()
-                            extendOptions.eventFlows[key](flow)
+                            extendOptions.eventFlows[key].call(this, flow)
                             this.$on(key, event => {
                                 flow.next(event)
                             })

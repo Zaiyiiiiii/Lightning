@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <img
-            @click="$emit('submit','cc')"
+            @click="$emit('submit',{a:1})"
             alt="Vue logo"
             src="../assets/logo.png"
         >
@@ -24,14 +24,19 @@
             }
         },
         eventFlows: {
-            submit: (flow) => {
+            submit(flow) {
                 flow.pipe(throttleTime(1500)).subscribe((x) => {
-                    console.log("debounced", x)
+                    console.log("debounced", x, this.cccc)
                 })
             }
         },
         components: {
             HelloWorld
-        }
+        },
+        data() {
+            return {
+                cccc: 555
+            }
+        },
     }
 </script>
