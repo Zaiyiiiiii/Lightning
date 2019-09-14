@@ -1,5 +1,5 @@
 import Vue from "vue"
-
+import { Subject } from "rxjs"
 class Lightning {
     constructor() {
 
@@ -10,9 +10,23 @@ class Lightning {
         Vue.mixin({
             beforeCreate() {
                 const extendOptions = this.__proto__.constructor.extendOptions
-                if (extendOptions && extendOptions.events) {
+                if (!extendOptions) {
+                    return
+                }
+                if (extendOptions.events) {
                     Object.keys(extendOptions.events).map(
                         key => this.$on(key, extendOptions.events[key])
+                    )
+                }
+                if (extendOptions.eventFlows) {
+                    Object.keys(extendOptions.events).map(
+                        key => {
+                            let flow = new Subject()
+                            extendOptions.eventFlows[key](flow)
+                            this.$on(key, event => {
+                                flow.next(event)
+                            })
+                        }
                     )
                 }
             }
