@@ -12,7 +12,7 @@
 <script>
     // @ is an alias to /src
     import HelloWorld from '@/components/HelloWorld.vue'
-    import { throttleTime } from "rxjs/operators"
+    import { throttleTime, timeout } from "rxjs/operators"
     export default {
         name: 'home',
         async mounted() {
@@ -25,8 +25,10 @@
         },
         eventFlows: {
             submit(flow) {
-                flow.pipe(throttleTime(1500)).subscribe((x) => {
+                flow.pipe(throttleTime(500), timeout(500)).subscribe((x) => {
                     console.log("debounced", x, this.cccc)
+                }, () => {
+                    return
                 })
             }
         },
